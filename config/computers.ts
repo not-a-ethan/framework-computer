@@ -22,7 +22,8 @@ const framework12: Framework12 = {
             "threads": 8
         }
     },
-    "power": 60
+    "power": 60,
+    "expansionSlots": 4
 };
 
 const framework13: Framework13 = {
@@ -97,7 +98,8 @@ const framework13: Framework13 = {
             "2.8K Display (rounded)": '13.5" 2880x1920 120Hz matte display'
         }
     },
-    "power": 60
+    "power": 60,
+    "expansionSlots": 4
 };
 
 const framework16: Framework16 = {
@@ -134,7 +136,8 @@ const framework16: Framework16 = {
     },
     "minPower": 100,
     "recomendedPower": 180,
-    "maxPower": 240
+    "maxPower": 240,
+    "expansionSlots": 6
 };
 
 const frameworkDesktop: FrameworkDesktop = {
@@ -188,7 +191,8 @@ const frameworkDesktop: FrameworkDesktop = {
     "storage": {
         "sizes": [2280],
         "slots": 2
-    }
+    },
+    "expansionSlots": 2
 };
 
 export const computers: Computers = {

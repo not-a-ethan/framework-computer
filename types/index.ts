@@ -48,7 +48,8 @@ export interface Framework12 {
     "i3-1315U": CPU,
     "i5-1334U": CPU
   },
-  "power": number
+  "power": number,
+  "expansionSlots": number
 };
 
 export interface Framework13 {
@@ -78,7 +79,8 @@ export interface Framework13 {
       "2.8K Display (rounded)": string
     }
   },
-  "power": number
+  "power": number,
+  "expansionSlots": number
 };
 
 export interface Framework16 {
@@ -92,7 +94,8 @@ export interface Framework16 {
   },
   "minPower": number,
   "recomendedPower": number,
-  "maxPower": number
+  "maxPower": number,
+  "expansionSlots": number
 };
 
 export interface FrameworkDesktop {
@@ -101,7 +104,8 @@ export interface FrameworkDesktop {
     "Max+ 395 - 64GB": FwDesktopPackage,
     "Max+ 395 - 128GB": FwDesktopPackage
   },
-  "storage": Storage
+  "storage": Storage,
+  "expansionSlots": number
 };
 
 export interface Computers {
