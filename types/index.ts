@@ -27,6 +27,18 @@ export interface Fw13Package extends CPU {
   "displayInfo": string
 }
 
+export interface FwDesktopPackage {
+  "cpu": CPU,
+    "ram": {
+      "amount": number,
+      "type": string
+    },
+    "graphics": {
+      "cores": number,
+      "clockspeed": number
+    }
+}
+
 
 
 export interface Framework12 {
@@ -84,7 +96,12 @@ export interface Framework16 {
 };
 
 export interface FrameworkDesktop {
-
+  "builds": {
+    "Max 385 - 32GB": FwDesktopPackage,
+    "Max+ 395 - 64GB": FwDesktopPackage,
+    "Max+ 395 - 128GB": FwDesktopPackage
+  },
+  "storage": Storage
 };
 
 export interface Computers {

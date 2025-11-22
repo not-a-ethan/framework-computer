@@ -138,7 +138,57 @@ const framework16: Framework16 = {
 };
 
 const frameworkDesktop: FrameworkDesktop = {
-
+    "builds": {
+        "Max 385 - 32GB": {
+            "cpu": {
+                "clockSpeed": 5,
+                "cores": 8,
+                "threads": 16
+            },
+            "ram": {
+                "amount": 32,
+                "type": "LPDDR5x"
+            },
+            "graphics": {
+                "clockspeed": 2.8,
+                "cores": 32
+            }
+        },
+        "Max+ 395 - 64GB": {
+            "cpu": {
+                "clockSpeed": 5.1,
+                "cores": 16,
+                "threads": 32,
+            },
+            "ram": {
+                "amount": 64,
+                "type": "LPDDR5x"
+            },
+            "graphics": {
+                "clockspeed": 2.9,
+                "cores": 40
+            }
+        },
+        "Max+ 395 - 128GB": {
+            "cpu": {
+                "clockSpeed": 5.1,
+                "cores": 16,
+                "threads": 32
+            },
+            "ram": {
+                "amount": 128,
+                "type": "LPDDR5x"
+            },
+            "graphics": {
+                "clockspeed": 2.9,
+                "cores": 40
+            }
+        }
+    },
+    "storage": {
+        "sizes": [2280],
+        "slots": 2
+    }
 };
 
 export const computers: Computers = {
