@@ -6,12 +6,12 @@ export function StorageTable(storage: Storage) {
     return (
         <>
             <TableRow>
-                <TableCell>Number of slots</TableCell>
+                <TableCell>Number of M.2 NVME slots</TableCell>
                 <TableCell>{storage.slots}</TableCell>
             </TableRow>
 
             <TableRow>
-                <TableCell>Sizes</TableCell>
+                <TableCell>M.2 sizes</TableCell>
                 <TableCell>{storage.sizes.join(", ")}</TableCell>
             </TableRow>
         </>

@@ -29,15 +29,15 @@ export interface Fw13Package extends CPU {
 
 export interface FwDesktopPackage {
   "cpu": CPU,
-    "ram": {
-      "amount": number,
-      "type": string
-    },
-    "graphics": {
-      "cores": number,
-      "clockspeed": number
-    }
-}
+  "ram": {
+    "amount": number,
+    "type": string
+  },
+  "graphics": {
+    "cores": number,
+    "clockspeed": number
+  }
+};
 
 
 

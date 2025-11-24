@@ -12,7 +12,7 @@ import { CpuTable } from "./components/cpuTable";
 import { RamTable } from "./components/ramTable";
 import { StorageTable } from "./components/storage";
 
-import { Framework12 } from "@/types";
+import { Framework12, Framework13, Framework16, FrameworkDesktop } from "@/types";
 
 import styles from "../../styles/compare.module.css";
 
@@ -179,19 +179,182 @@ export default function Compare() {
                                         </Table>
                                     </>
                                 )
-                            } else if (deviceOne == "13") {
-                                
-                            };
-                            /*
-                                Continue with all other Framework products
-                            */
-                        };
+                            } else if (deviceOne == "framework13") {
+                                const fw13: Framework13 = deviceOneSpecs;
+                                const newIntel: string[] = Object.keys(fw13["new builds"]["cpu"]["intel"]);
+                                const newAmd: string[] = Object.keys(fw13["new builds"]["cpu"]["amd"]);
+                                const cpuOptions: string[] = newIntel.concat(newAmd.concat(Object.keys(fw13["old builds"]["amd"])));
 
-                        return (
-                            <div>
-                                <p>eitnhg</p>
-                            </div>
-                        )
+                                if (!cpuOptions) {
+                                    return <></>;
+                                };
+
+                                let cpuTable;
+
+                                // Old package
+                                if (deviceOnePackage.includes("AMD Ryzen")) {
+                                        cpuTable = CpuTable(
+                                        (deviceOnePackage !== "AMD Ryzen™ 5 7640U" && deviceOnePackage !== "AMD Ryzen™ 5 7640U (2.8k Display)")
+                                        ? null : fw13["old builds"].amd[deviceOnePackage]
+                                    );
+                                } else if (deviceOnePackage.includes("Ryzen")) {
+                                    // New AMD
+                                    cpuTable = CpuTable(
+                                        (deviceOnePackage !== "Ryzen™ AI 5 340" && deviceOnePackage !== "Ryzen™ AI 7 350" && deviceOnePackage !== "Ryzen™ AI 9 HX 370" )
+                                        ? null : fw13["new builds"].cpu.amd[deviceOnePackage]
+                                    );
+                                } else {
+                                    // New Intel
+                                    cpuTable = CpuTable(
+                                        (deviceOnePackage !== "Ultra 5 125H" && deviceOnePackage !== "Ultra 7 155H" && deviceOnePackage !== "Ultra 7 165H") 
+                                        ? null : fw13["new builds"].cpu.intel[deviceOnePackage]
+                                    );
+                                };
+
+                                const ramTable = RamTable(fw13.ram);
+                                const storageTable = StorageTable(fw13.storage);
+
+                                return (
+                                    <>
+                                        <Select label="Select a CPU" onSelectionChange={deviceOnePackageUpdate}>
+                                            {cpuOptions.map((cpuName: string) => (
+                                                <SelectItem key={cpuName}>{cpuName}</SelectItem>
+                                            ))}
+                                        </Select>
+
+                                        <br />
+                                        <br />
+
+                                        <Table isStriped>
+                                            <TableHeader>
+                                                <TableColumn>Spec</TableColumn>
+                                                <TableColumn>Value</TableColumn>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {cpuTable}
+                                                {ramTable}
+                                                {storageTable}
+
+                                                <TableRow>
+                                                    <TableCell>Power in</TableCell>
+                                                    <TableCell>{fw13.power}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Expansion slots</TableCell>
+                                                    <TableCell>{fw13.expansionSlots}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </>
+                                )
+                            } else if (deviceOne == "framework16") {
+                                const fw16: Framework16 = deviceOneSpecs;
+                                const cpuOptions: string[] = Object.keys(fw16["cpu"]);
+
+                                if (!cpuOptions) {
+                                    return <></>;
+                                };
+
+                                const cpuTable = CpuTable(
+                                    (deviceOnePackage !== "Ryzen™ 7 7840HS" && deviceOnePackage !== "Ryzen™ 9 7940HS" && deviceOnePackage !== "Ryzen™ AI 7 350" && deviceOnePackage !== "Ryzen™ AI 9 HX 370") 
+                                    ? null : fw16.cpu[deviceOnePackage]
+                                );
+                                const ramTable = RamTable(fw16.ram);
+                                const storageTable = StorageTable(fw16.storage);
+
+                                return (
+                                    <>
+                                        <Select label="Select a CPU" onSelectionChange={deviceOnePackageUpdate}>
+                                            {cpuOptions.map((cpuName: string) => (
+                                                <SelectItem key={cpuName}>{cpuName}</SelectItem>
+                                            ))}
+                                        </Select>
+
+                                        <br />
+                                        <br />
+
+                                        <Table isStriped>
+                                            <TableHeader>
+                                                <TableColumn>Spec</TableColumn>
+                                                <TableColumn>Value</TableColumn>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {cpuTable}
+                                                {ramTable}
+                                                {storageTable}
+
+                                                <TableRow>
+                                                    <TableCell>Min power in (supported)</TableCell>
+                                                    <TableCell>{fw16.minPower}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Recomended power in (supported)</TableCell>
+                                                    <TableCell>{fw16.recomendedPower}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Max power in (supported)</TableCell>
+                                                    <TableCell>{fw16.maxPower}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Expansion slots</TableCell>
+                                                    <TableCell>{fw16.expansionSlots}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </>
+                                )
+                            } else if (deviceOne == "desktop") {
+                                const desktop: FrameworkDesktop = deviceOneSpecs;
+                                const cpuOptions: string[] = Object.keys(desktop["builds"]);
+
+                                if (!cpuOptions) {
+                                    return <></>
+                                }
+
+                                const cpuTable = CpuTable(
+                                    (deviceOnePackage !== "Max 385 - 32GB" && deviceOnePackage !== "Max+ 395 - 64GB" && deviceOnePackage !== "Max+ 395 - 128GB") 
+                                    ? null : desktop.builds[deviceOnePackage]
+                                );
+                                const storageTable = StorageTable(desktop.storage);
+
+                                return (
+                                    <>
+                                        <Select label="Select a CPU" onSelectionChange={deviceOnePackageUpdate}>
+                                            {cpuOptions.map((cpuName: string) => (
+                                                <SelectItem key={cpuName}>{cpuName}</SelectItem>
+                                            ))}
+                                        </Select>
+
+                                        <br />
+                                        <br />
+
+                                        <Table isStriped>
+                                            <TableHeader>
+                                                <TableColumn>Spec</TableColumn>
+                                                <TableColumn>Value</TableColumn>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {cpuTable}
+                                                {storageTable}
+
+                                                <TableRow>
+                                                    <TableCell>Expansion slots</TableCell>
+                                                    <TableCell>{desktop.expansionSlots}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </>
+                                )
+                            };
+
+                            return (
+                                <></>
+                            );
+                        };
                     })()}
                 </div>
 
@@ -259,19 +422,182 @@ export default function Compare() {
                                         </Table>
                                     </>
                                 )
-                            } else if (deviceOne == "13") {
-                                
-                            };
-                            /*
-                                Continue with all other Framework products
-                            */
-                        };
+                            } else if (deviceTwo == "framework13") {
+                                const fw13: Framework13 = deviceTwoSpecs;
+                                const newIntel: string[] = Object.keys(fw13["new builds"]["cpu"]["intel"]);
+                                const newAmd: string[] = Object.keys(fw13["new builds"]["cpu"]["amd"]);
+                                const cpuOptions: string[] = newIntel.concat(newAmd.concat(Object.keys(fw13["old builds"]["amd"])));
 
-                        return (
-                            <div>
-                                <p>eitnhg</p>
-                            </div>
-                        )
+                                if (!cpuOptions) {
+                                    return <></>;
+                                };
+
+                                let cpuTable;
+
+                                // Old package
+                                if (deviceTwoPackage.includes("AMD Ryzen")) {
+                                        cpuTable = CpuTable(
+                                        (deviceTwoPackage !== "AMD Ryzen™ 5 7640U" && deviceTwoPackage !== "AMD Ryzen™ 5 7640U (2.8k Display)")
+                                        ? null : fw13["old builds"].amd[deviceTwoPackage]
+                                    );
+                                } else if (deviceTwoPackage.includes("Ryzen")) {
+                                    // New AMD
+                                    cpuTable = CpuTable(
+                                        (deviceTwoPackage !== "Ryzen™ AI 5 340" && deviceTwoPackage !== "Ryzen™ AI 7 350" && deviceTwoPackage !== "Ryzen™ AI 9 HX 370" )
+                                        ? null : fw13["new builds"].cpu.amd[deviceTwoPackage]
+                                    );
+                                } else {
+                                    // New Intel
+                                    cpuTable = CpuTable(
+                                        (deviceTwoPackage !== "Ultra 5 125H" && deviceTwoPackage !== "Ultra 7 155H" && deviceTwoPackage !== "Ultra 7 165H") 
+                                        ? null : fw13["new builds"].cpu.intel[deviceTwoPackage]
+                                    );
+                                };
+
+                                const ramTable = RamTable(fw13.ram);
+                                const storageTable = StorageTable(fw13.storage);
+
+                                return (
+                                    <>
+                                        <Select label="Select a CPU" onSelectionChange={deviceTwoPackageUpdate}>
+                                            {cpuOptions.map((cpuName: string) => (
+                                                <SelectItem key={cpuName}>{cpuName}</SelectItem>
+                                            ))}
+                                        </Select>
+
+                                        <br />
+                                        <br />
+
+                                        <Table isStriped>
+                                            <TableHeader>
+                                                <TableColumn>Spec</TableColumn>
+                                                <TableColumn>Value</TableColumn>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {cpuTable}
+                                                {ramTable}
+                                                {storageTable}
+
+                                                <TableRow>
+                                                    <TableCell>Power in</TableCell>
+                                                    <TableCell>{fw13.power}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Expansion slots</TableCell>
+                                                    <TableCell>{fw13.expansionSlots}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </>
+                                )
+                            } else if (deviceTwo == "framework16") {
+                                const fw16: Framework16 = deviceTwoSpecs;
+                                const cpuOptions: string[] = Object.keys(fw16["cpu"]);
+
+                                if (!cpuOptions) {
+                                    return <></>;
+                                };
+
+                                const cpuTable = CpuTable(
+                                    (deviceTwoPackage !== "Ryzen™ 7 7840HS" && deviceTwoPackage !== "Ryzen™ 9 7940HS" && deviceTwoPackage !== "Ryzen™ AI 7 350" && deviceTwoPackage !== "Ryzen™ AI 9 HX 370") 
+                                    ? null : fw16.cpu[deviceTwoPackage]
+                                );
+                                const ramTable = RamTable(fw16.ram);
+                                const storageTable = StorageTable(fw16.storage);
+
+                                return (
+                                    <>
+                                        <Select label="Select a CPU" onSelectionChange={deviceTwoPackageUpdate}>
+                                            {cpuOptions.map((cpuName: string) => (
+                                                <SelectItem key={cpuName}>{cpuName}</SelectItem>
+                                            ))}
+                                        </Select>
+
+                                        <br />
+                                        <br />
+
+                                        <Table isStriped>
+                                            <TableHeader>
+                                                <TableColumn>Spec</TableColumn>
+                                                <TableColumn>Value</TableColumn>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {cpuTable}
+                                                {ramTable}
+                                                {storageTable}
+
+                                                <TableRow>
+                                                    <TableCell>Min power in (supported)</TableCell>
+                                                    <TableCell>{fw16.minPower}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Recomended power in (supported)</TableCell>
+                                                    <TableCell>{fw16.recomendedPower}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Max power in (supported)</TableCell>
+                                                    <TableCell>{fw16.maxPower}W</TableCell>
+                                                </TableRow>
+
+                                                <TableRow>
+                                                    <TableCell>Expansion slots</TableCell>
+                                                    <TableCell>{fw16.expansionSlots}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </>
+                                )
+                            } else if (deviceTwo == "desktop") {
+                                const desktop: FrameworkDesktop = deviceTwoSpecs;
+                                const cpuOptions: string[] = Object.keys(desktop["builds"]);
+
+                                if (!cpuOptions) {
+                                    return <></>
+                                }
+
+                                const cpuTable = CpuTable(
+                                    (deviceTwoPackage !== "Max 385 - 32GB" && deviceTwoPackage !== "Max+ 395 - 64GB" && deviceTwoPackage !== "Max+ 395 - 128GB") 
+                                    ? null : desktop.builds[deviceTwoPackage]
+                                );
+                                const storageTable = StorageTable(desktop.storage);
+
+                                return (
+                                    <>
+                                        <Select label="Select a CPU" onSelectionChange={deviceTwoPackageUpdate}>
+                                            {cpuOptions.map((cpuName: string) => (
+                                                <SelectItem key={cpuName}>{cpuName}</SelectItem>
+                                            ))}
+                                        </Select>
+
+                                        <br />
+                                        <br />
+
+                                        <Table isStriped>
+                                            <TableHeader>
+                                                <TableColumn>Spec</TableColumn>
+                                                <TableColumn>Value</TableColumn>
+                                            </TableHeader>
+                                            <TableBody>
+                                                {cpuTable}
+                                                {storageTable}
+
+                                                <TableRow>
+                                                    <TableCell>Expansion slots</TableCell>
+                                                    <TableCell>{desktop.expansionSlots}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </>
+                                )
+                            };
+
+                            return (
+                                <></>
+                            );
+                        };
                     })()}
                 </div>
             </div>
