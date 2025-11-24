@@ -9,6 +9,7 @@
     "lint": "eslint --fix"
   },
   "dependencies": {
+    "@heroui/link": "^2.2.23",
     "@heroui/select": "2.4.28",
     "@heroui/system": "2.4.23",
     "@heroui/table": "2.2.27",

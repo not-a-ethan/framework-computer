@@ -1,10 +1,10 @@
-import styles from "../styles/home.module.css";
+import { Link } from "@heroui/link";
 
-import { computers } from "./api/computers";
+import styles from "../styles/home.module.css";
 
 export default function Home() {
   return (
-    <>
+    <main className={`${styles.page}`}>
       <h1>Framework Comparator</h1>
 
       <p>Compare diffrent modals of Framework devices.</p>
@@ -36,6 +36,8 @@ export default function Home() {
           <p>Massive gaming capability, heavy-duty AI compute, and standard PC parts, all in 4.5L.</p>
         </div>
       </div>
-    </>
+
+      <h1>Compare the specs on the <Link href="compare">Compare Page</Link></h1>
+    </main>
   );
 };

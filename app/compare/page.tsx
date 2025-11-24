@@ -111,7 +111,7 @@ export default function Compare() {
     const deviceOptions = device["devices"];
 
     return (
-        <>
+        <main className={`${styles.page}`}>
             <h1>On this page you can compare the full specs of diffrent Framework computers</h1>
 
             <div className={`${styles.grid}`}>
@@ -601,6 +601,6 @@ export default function Compare() {
                     })()}
                 </div>
             </div>
-        </>
+        </main>
     );
 };
