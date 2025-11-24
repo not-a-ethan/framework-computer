@@ -19,14 +19,14 @@ import styles from "../../styles/compare.module.css";
 export default function Compare() {
     const { device, deviceError, deviceLoading } = getAPI(`/api/getDevices`, ["device", "deviceError", "deviceLoading"]);
     
-    const [deviceOne, setDeviceOne] = useState("");
-    const [deviceTwo, setDeviceTwo] = useState("");
+    const [deviceOne, setDeviceOne] = useState<string>("");
+    const [deviceTwo, setDeviceTwo] = useState<string>("");
 
-    const [deviceOneSpecs, setDeviceOneSpecs] = useState({});
-    const [deviceTwoSpecs, setDeviceTwoSpecs] = useState({});
+    const [deviceOneSpecs, setDeviceOneSpecs] = useState<any>({});
+    const [deviceTwoSpecs, setDeviceTwoSpecs] = useState<any>({});
 
-    const [deviceOnePackage, setDeviceOnePackage] = useState("");
-    const [deviceTwoPackage, setDeviceTwoPackage] = useState("");
+    const [deviceOnePackage, setDeviceOnePackage] = useState<string>("");
+    const [deviceTwoPackage, setDeviceTwoPackage] = useState<string>("");
 
     function deviceOneSelect(e: any) {
         const vals: string[] = Object.values(e);
